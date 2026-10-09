@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020817">
+<title>Dollar Live Gift Animation</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #020817;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 48%,
+      #103c78 0%,
+      #071b3b 36%,
+      #020817 72%,
+      #01030a 100%);
+}
+
+.aurora {
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  background: #0077ff35;
+  filter: blur(65px);
+  animation: aurora 3s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes aurora {
+  from { transform: scale(.8); opacity: .5; }
+  to { transform: scale(1.3); opacity: 1; }
+}
+
+.ring {
+  position: absolute;
+  width: min(88vw, 410px);
+  aspect-ratio: 1;
+  border: 1px solid #168bff45;
+  border-radius: 50%;
+  box-shadow:
+    0 0 35px #007bff25,
+    inset 0 0 35px #007bff15;
+  z-index: -1;
+}
+
+.ring.two {
+  width: min(105vw, 500px);
+  border-color: #ffca4930;
+  animation: ringPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes ringPulse {
+  to { transform: scale(1.08); opacity: .5; }
+}
+
+.brand {
+  position: absolute;
+  top: 8%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 4;
+  animation: brandGlow 2.5s ease-in-out infinite alternate;
+}
+
+.crown {
+  color: #ffe18a;
+  font-size: 35px;
+  text-shadow:
+    0 0 8px #ffbd29,
+    0 0 22px #ffb300;
+}
+
+.brand h1 {
+  font-size: clamp(30px, 8vw, 47px);
+  font-weight: 1000;
+  font-style: italic;
+  letter-spacing: 2px;
+  background: linear-gradient(
+    180deg,
+    #fffbdc 0%,
+    #ffda65 35%,
+    #d18a17 70%,
+    #fff0a7 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 10px #007bff);
+}
+
+.brand h1 span {
+  background: linear-gradient(
+    180deg, #b9f1ff, #1c9aff 45%, #0753cb
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes brandGlow {
+  to { filter: brightness(1.25); }
+}
+
+.stage {
+  position: absolute;
+  width: min(90vw, 350px);
+  height: 340px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.platform {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 49px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 2px solid #168bff;
+  background: radial-gradient(ellipse, #15529a, #04132b 72%);
+  box-shadow:
+    0 0 12px #008bff,
+    0 0 32px #006dff80,
+    inset 0 0 20px #008bff;
+}
+
+.platform::after {
+  content: "";
+  position: absolute;
+  inset: 8px 12px;
+  border: 1px solid #ffdc76;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffbd37;
+}
+
+.gift {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  width: 180px;
+  height: 175px;
+  transform: translateX(-50%);
+  animation: giftFloat 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px #007bff65);
+  z-index: 3;
+}
+
+@keyframes giftFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+
+.box {
+  position: absolute;
+  bottom: 0;
+  width: 180px;
+  height: 112px;
+  overflow: hidden;
+  border: 2px solid #379aff;
+  border-radius: 3px 3px 9px 9px;
+  background: linear-gradient(
+    110deg, #03132f, #0962b8 45%, #031533
+  );
+  box-shadow:
+    inset 0 0 28px #008bff75,
+    0 0 16px #007bff50;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  left: 74px;
+  width: 28px;
+  height: 100%;
+  background: linear-gradient(
+    90deg, #b37b18, #fff0a5, #d69a22
+  );
+  box-shadow: 0 0 15px #ffc83d;
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: linear-gradient(#70b8ff, #0753a0);
+}
+
+.lid {
+  position: absolute;
+  z-index: 5;
+  bottom: 108px;
+  left: -10px;
+  width: 200px;
+  height: 37px;
+  border: 2px solid #ffe18a;
+  border-radius: 4px;
+  background: linear-gradient(#1676d5, #06346d);
+  box-shadow:
+    0 0 18px #008bff,
+    0 0 8px #ffd75b;
+  transform-origin: 10% 100%;
+  transition: transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.lid::before {
+  content: "";
+  position: absolute;
+  left: 80px;
+  width: 28px;
+  height: 100%;
+  background: linear-gradient(
+    90deg, #b37b18, #fff0a5, #d69a22
+  );
+}
+
+.bow {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 139px;
+  width: 80px;
+  height: 38px;
+  transform: translateX(-50%);
+  transition: transform .8s, opacity .5s;
+}
+
+.bow::before, .bow::after {
+  content: "";
+  position: absolute;
+  width: 37px;
+  height: 28px;
+  border: 6px solid #ffdc70;
+  border-radius: 50% 50% 10% 50%;
+  box-shadow: 0 0 12px #ffbd28;
+}
+
+.bow::before {
+  left: 0;
+  transform: rotate(30deg);
+}
+
+.bow::after {
+  right: 0;
+  transform: scaleX(-1) rotate(30deg);
+}
+
+.bow i {
+  position: absolute;
+  left: 33px;
+  top: 10px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff0a4;
+  border: 3px solid #d99c22;
+}
+
+.gift.open .lid {
+  transform: translate(-6px, -70px) rotate(-27deg);
+}
+
+.gift.open .bow {
+  transform: translate(-50%, -76px) rotate(20deg);
+  opacity: 0;
+}
+
+.corelight {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 42px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff9cb;
+  opacity: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.gift.open .corelight {
+  animation: flash 1.2s ease-out forwards;
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  25% {
+    opacity: 1;
+    box-shadow:
+      0 0 25px 20px #ffdb55,
+      0 0 60px 45px #ffae18aa;
+  }
+  100% {
+    opacity: .25;
+    box-shadow:
+      0 0 18px 10px #ffdb55,
+      0 0 50px 30px #087bff55;
+  }
+}
+
+.effects {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Dollar notes emerge from the gift center */
+.bill {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 66px;
+  height: 32px;
+  border: 2px solid #e5d28a;
+  border-radius: 4px;
+  background: linear-gradient(
+    135deg, #e7f7c7, #71b77d, #d9d49a
+  );
+  color: #18572d;
+  font: bold 18px Georgia, serif;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 12px #b7f6a45c;
+  will-change: transform, opacity;
+  animation: billFlight var(--dur) cubic-bezier(.12,.6,.28,1) forwards;
+}
+
+.bill::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid #488354;
+  border-radius: 50%;
+}
+
+@keyframes billFlight {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.2) rotate(0);
+  }
+  12% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 1;
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      scale(1) rotate(var(--rot));
+  }
+  65% {
+    opacity: 1;
+    transform:
+      translate(calc(-50% + var(--x2)), calc(-50% + var(--y2)))
+      scale(.85) rotate(calc(var(--rot) + 180deg));
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(calc(-50% + var(--x2)), 110vh)
+      scale(.65) rotate(calc(var(--rot) + 400deg));
+  }
+}
+
+.coin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  border: 3px solid #fff0a2;
+  display: grid;
+  place-items: center;
+  color: #845000;
+  font-weight: bold;
+  background: linear-gradient(
+    135deg, #fff3a8, #f4a600, #ffe878
+  );
+  box-shadow:
+    0 0 12px #ffc400,
+    0 0 26px #ffad0080;
+  animation: coinFly var(--dur) ease-out forwards;
+}
+
+@keyframes coinFly {
+  0% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(.2) rotateY(0);
+  }
+  15% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      scale(.75) rotateY(720deg);
+  }
+}
+
+.spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff7c2;
+  box-shadow: 0 0 8px 3px #ffbc20;
+  animation: sparkFly var(--dur) ease-out forwards;
+}
+
+@keyframes sparkFly {
+  0% {
+    opacity: 0;
+    transform: translate(0,0) scale(0);
+  }
+  20% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x),var(--y)) scale(0);
+  }
+}
+
+@media (max-height: 650px) {
+  .brand { top: 3%; }
+  .brand .crown { font-size: 24px; }
+  .brand h1 { font-size: 29px; }
+  .stage {
+    top: 53%;
+    transform: translate(-50%,-50%) scale(.78);
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="scene">
+  <div class="aurora"></div>
+  <div class="ring"></div>
+  <div class="ring two"></div>
+
+  <header class="brand">
+    <div class="crown">♛</div>
+    <h1>DOLLAR <span>LIVE</span></h1>
+  </header>
+
+  <div class="stage">
+    <div class="effects" id="effects"></div>
+
+    <div class="platform"></div>
+
+    <div class="gift" id="gift">
+      <div class="corelight"></div>
+      <div class="box"></div>
+      <div class="lid"></div>
+      <div class="bow"><i></i></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const gift = document.getElementById("gift");
+const effects = document.getElementById("effects");
+
+let timers = [];
+let cycleRunning = false;
+
+function later(fn, delay) {
+  timers.push(setTimeout(fn, delay));
+}
+
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function clearTimers() {
+  timers.forEach(clearTimeout);
+  timers = [];
+}
+
+function addBill() {
+  const el = document.createElement("div");
+  el.className = "bill";
+  el.textContent = "$";
+
+  const x = rand(-145, 145);
+  const x2 = x + rand(-45, 45);
+
+  el.style.setProperty("--x", x + "px");
+  el.style.setProperty("--y", rand(-145, -65) + "px");
+  el.style.setProperty("--x2", x2 + "px");
+  el.style.setProperty("--y2", rand(-70, 35) + "px");
+  el.style.setProperty("--rot", rand(-280, 280) + "deg");
+  el.style.setProperty("--dur", rand(3.5, 5.5) + "s");
+
+  effects.appendChild(el);
+  el.addEventListener("animationend", () => el.remove(), {once:true});
+}
+
+function addCoin() {
+  const el = document.createElement("div");
+  el.className = "coin";
+  el.textContent = "$";
+
+  el.style.setProperty("--x", rand(-150, 150) + "px");
+  el.style.setProperty("--y", rand(-190, -45) + "px");
+  el.style.setProperty("--dur", rand(1.5, 2.6) + "s");
+
+  effects.appendChild(el);
+  el.addEventListener("animationend", () => el.remove(), {once:true});
+}
+
+function addSpark() {
+  const el = document.createElement("div");
+  el.className = "spark";
+
+  el.style.setProperty("--x", rand(-170, 170) + "px");
+  el.style.setProperty("--y", rand(-200, 80) + "px");
+  el.style.setProperty("--dur", rand(.8, 2) + "s");
+
+  effects.appendChild(el);
+  el.addEventListener("animationend", () => el.remove(), {once:true});
+}
+
+function runCycle() {
+  if (cycleRunning) return;
+  cycleRunning = true;
+
+  clearTimers();
+  effects.replaceChildren();
+  gift.classList.remove("open");
+
+  // Open the gift automatically.
+  later(() => {
+    gift.classList.add("open");
+
+    // Money and coins launch from inside the gift.
+    for (let i = 0; i < 30; i++) {
+      later(addBill, i * 95);
+    }
+
+    for (let i = 0; i < 24; i++) {
+      later(addCoin, i * 85);
+    }
+
+    for (let i = 0; i < 50; i++) {
+      later(addSpark, i * 40);
+    }
+  }, 450);
+
+  // Wait for the complete animation, then repeat automatically.
+  later(() => {
+    cycleRunning = false;
+    runCycle();
+  }, 8500);
+}
+
+// Start automatically after page load.
+window.addEventListener("load", () => {
+  later(runCycle, 650);
+});
+</script>
+</body>
+</html>
